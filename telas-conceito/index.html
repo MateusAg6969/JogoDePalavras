@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Palavrório Nexus — Suíte de Telas Conceituais & PRD Executivo</title>
+  <meta name="description" content="Telas conceituais interativas desenvolvidas em HTML5, CSS Dark Glassmorphism e JavaScript para o projeto Palavrório Nexus.">
+  
+  <!-- Fontes de Alta Performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="nexus-environment">
+  <!-- Efeitos de Fundo: Nebulosas e Partículas Cósmicas -->
+  <div class="ambient-nebula nebula-1" aria-hidden="true"></div>
+  <div class="ambient-nebula nebula-2" aria-hidden="true"></div>
+  <div class="ambient-nebula nebula-3" aria-hidden="true"></div>
+  <div class="grid-overlay" aria-hidden="true"></div>
+
+  <!-- Barra de Controle Global do Showroom -->
+  <header class="suite-header glass-bar">
+    <div class="suite-brand">
+      <div class="brand-badge">PROTÓTIPO CONCEITUAL V3.0</div>
+      <div class="brand-title-group">
+        <span class="brand-icon">⚡</span>
+        <h1 class="brand-name">PALAVRÓRIO <span>NEXUS</span></h1>
+      </div>
+    </div>
+
+    <!-- Navegação das Telas Conceituais -->
+    <nav class="suite-nav" aria-label="Navegação das Telas">
+      <button class="nav-tab active" data-screen="screen-arena" id="tab-arena">
+        <span class="tab-icon">🎮</span>
+        <span class="tab-text">01. Nexus Arena</span>
+        <span class="tab-pill">Gameplay</span>
+      </button>
+      <button class="nav-tab" data-screen="screen-pvp" id="tab-pvp">
+        <span class="tab-icon">⚔️</span>
+        <span class="tab-text">02. Duelo 1v1</span>
+        <span class="tab-pill live-pill">PvP Real-Time</span>
+      </button>
+      <button class="nav-tab" data-screen="screen-neuro" id="tab-neuro">
+        <span class="tab-icon">🧠</span>
+        <span class="tab-text">03. Neuro-Hub</span>
+        <span class="tab-pill">Analytics</span>
+      </button>
+      <button class="nav-tab" data-screen="screen-prd" id="tab-prd">
+        <span class="tab-icon">📑</span>
+        <span class="tab-text">04. PRD Master</span>
+        <span class="tab-pill">Docs</span>
+      </button>
+    </nav>
+
+    <!-- Controles de Exibição & Áudio -->
+    <div class="suite-actions">
+      <div class="viewport-toggle" title="Alternar formato de visualização">
+        <button id="btn-view-mobile" class="view-btn active" title="Simulador Mobile (390px)">📱 Mobile</button>
+        <button id="btn-view-desktop" class="view-btn" title="Visualização Expandida">🖥️ Expandido</button>
+      </div>
+      <button id="btn-audio-toggle" class="audio-btn" title="Ativar Áudio Sintetizado Biorreativo">
+        <span id="audio-icon">🔊</span> Som
+      </button>
+    </div>
+  </header>
+
+  <!-- Container Principal do Simulador -->
+  <main class="viewport-stage mode-mobile" id="viewport-stage">
+    
+    <!-- ======================================================== -->
+    <!-- TELA CONCEITUAL 01: NEXUS ARENA (GAMEPLAY NEXT-GEN)       -->
+    <!-- ======================================================== -->
+    <section id="screen-arena" class="concept-screen active">
+      <div class="device-mockup-wrapper">
+        <div class="phone-status-bar">
+          <span class="status-time">09:41</span>
+          <div class="status-notch"></div>
+          <div class="status-icons">5G 📶 100% 🔋</div>
+        </div>
+
+        <div class="game-hud glass-panel">
+          <div class="hud-left">
+            <div class="avatar-ring">
+              <span class="avatar-char">✨</span>
+              <span class="level-badge">42</span>
+            </div>
+            <div class="player-meta">
+              <span class="player-name">Kaelen Nexus</span>
+              <span class="player-title">Grão-Mestre Léxico</span>
+            </div>
+          </div>
+
+          <div class="hud-center">
+            <div class="streak-flame" title="Streak de Acertos Consecutivos">
+              <span class="flame-icon">🔥</span>
+              <span class="streak-multiplier">x5</span>
+              <span class="streak-label">COMBO</span>
+            </div>
+          </div>
+
+          <div class="hud-right">
+            <div class="currency-tag" title="Mana Cognitiva">
+              <span class="currency-icon">💠</span>
+              <span class="currency-val">1,480</span>
+            </div>
+            <button class="hint-orb-btn" id="btn-arena-hint" title="Orbe Oráculo: Dica de Letra">
+              <span class="orb-glow"></span>
+              <span class="orb-icon">🔮</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Grade Dinâmica de Palavras (Quantum Word Matrix) -->
+        <div class="matrix-board-container">
+          <div class="matrix-legend">
+            <span class="legend-badge">TABULEIRO DE ANAGRAMAS</span>
+            <span class="legend-progress">5 / 7 Descobertas</span>
+          </div>
+
+          <div class="matrix-grid">
+            <!-- Palavra 1 (3 letras): Revelada com Ouro -->
+            <div class="word-strip solved">
+              <div class="matrix-tile filled gold">B</div>
+              <div class="matrix-tile filled gold">O</div>
+              <div class="matrix-tile filled gold">R</div>
+            </div>
+
+            <!-- Palavra 2 (4 letras): Revelada -->
+            <div class="word-strip solved">
+              <div class="matrix-tile filled">R</div>
+              <div class="matrix-tile filled">I</div>
+              <div class="matrix-tile filled">N</div>
+              <div class="matrix-tile filled">A</div>
+            </div>
+
+            <!-- Palavra 3 (10 letras - Palavra Mestra): Revelada com Efeito Neon -->
+            <div class="word-strip solved master-word">
+              <div class="matrix-tile filled neon">P</div>
+              <div class="matrix-tile filled neon">A</div>
+              <div class="matrix-tile filled neon">L</div>
+              <div class="matrix-tile filled neon">A</div>
+              <div class="matrix-tile filled neon">V</div>
+              <div class="matrix-tile filled neon">R</div>
+              <div class="matrix-tile filled neon">Ó</div>
+              <div class="matrix-tile filled neon">R</div>
+              <div class="matrix-tile filled neon">I</div>
+              <div class="matrix-tile filled neon">O</div>
+            </div>
+
+            <!-- Palavra 4 (5 letras): Oculta -->
+            <div class="word-strip">
+              <div class="matrix-tile empty pulsing"></div>
+              <div class="matrix-tile empty"></div>
+              <div class="matrix-tile empty"></div>
+              <div class="matrix-tile empty"></div>
+              <div class="matrix-tile empty"></div>
+            </div>
+
+            <!-- Palavra 5 (6 letras): Oculta -->
+            <div class="word-strip">
+              <div class="matrix-tile empty"></div>
+              <div class="matrix-tile empty"></div>
+              <div class="matrix-tile empty"></div>
+              <div class="matrix-tile empty"></div>
+              <div class="matrix-tile empty"></div>
+              <div class="matrix-tile empty"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pré-visualização da Palavra Traçada em Tempo Real -->
+        <div class="word-preview-zone">
+          <div class="preview-bubble" id="arena-preview-bubble">
+            <span class="preview-text" id="arena-current-word">PARVO</span>
+            <span class="preview-points">+350 PTS</span>
+          </div>
+        </div>
+
+        <!-- Roda Holográfica de Letras (Holographic Word Wheel) -->
+        <div class="wheel-stage">
+          <svg class="wheel-laser-canvas" id="arena-svg-canvas" viewBox="0 0 320 320">
+            <defs>
+              <linearGradient id="laserGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#00f2fe" />
+                <stop offset="100%" stop-color="#4facfe" />
+              </linearGradient>
+              <filter id="glowEffect">
+                <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                <feMerge>
+                  <feMergeNode in="coloredBlur"/>
+                  <feMergeNode in="SourceGraphic"/>
+                </feMerge>
+              </filter>
+            </defs>
+            <path id="laser-path" d="M 160 50 L 238 82 L 270 160" stroke="url(#laserGrad)" stroke-width="4" fill="none" filter="url(#glowEffect)" stroke-linecap="round"/>
+          </svg>
+
+          <div class="wheel-outer-ring">
+            <div class="wheel-orbital-ring"></div>
+            
+            <!-- Nós de Letras Polares (Posições Trigonométricas) -->
+            <button class="letter-node active" style="--angle: 0deg;" data-letter="P">
+              <span class="node-letter">P</span>
+              <span class="node-glow"></span>
+            </button>
+            <button class="letter-node active" style="--angle: 45deg;" data-letter="A">
+              <span class="node-letter">A</span>
+              <span class="node-glow"></span>
+            </button>
+            <button class="letter-node active" style="--angle: 90deg;" data-letter="R">
+              <span class="node-letter">R</span>
+              <span class="node-glow"></span>
+            </button>
+            <button class="letter-node" style="--angle: 135deg;" data-letter="O">
+              <span class="node-letter">O</span>
+              <span class="node-glow"></span>
+            </button>
+            <button class="letter-node" style="--angle: 180deg;" data-letter="V">
+              <span class="node-letter">V</span>
+              <span class="node-glow"></span>
+            </button>
+            <button class="letter-node" style="--angle: 225deg;" data-letter="I">
+              <span class="node-letter">I</span>
+              <span class="node-glow"></span>
+            </button>
+            <button class="letter-node" style="--angle: 270deg;" data-letter="Ó">
+              <span class="node-letter">Ó</span>
+              <span class="node-glow"></span>
+            </button>
+            <button class="letter-node" style="--angle: 315deg;" data-letter="L">
+              <span class="node-letter">L</span>
+              <span class="node-glow"></span>
+            </button>
+
+            <!-- Núcleo Central da Roda -->
+            <div class="wheel-core" id="arena-wheel-core">
+              <div class="core-pulse"></div>
+              <span class="core-title">NEXUS</span>
+              <span class="core-sub">ENVIAR</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Barra Inferior de Utilidades & Ações Rápidas -->
+        <div class="arena-footer-controls">
+          <button class="tactical-btn" id="btn-arena-shuffle" title="Embaralhar Nós Polares">
+            <span class="btn-icon">🔀</span>
+            <span class="btn-caption">Girar</span>
+          </button>
+          
+          <div class="tactical-cards-container">
+            <button class="mod-chip active" title="Buff Ativo: Dobro de Mana">
+              <span class="chip-icon">⚡</span>
+              <span class="chip-label">Overclock x2</span>
+            </button>
+            <button class="mod-chip" title="Dica Semântica Disponível">
+              <span class="chip-icon">📖</span>
+              <span class="chip-label">Sinônimo</span>
+            </button>
+          </div>
+
+          <button class="tactical-btn" id="btn-arena-clear" title="Desfazer Seleção">
+            <span class="btn-icon">✖️</span>
+            <span class="btn-caption">Limpar</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- TELA CONCEITUAL 02: DUELO MENTAL 1V1 (PVP MULTIPLAYER)    -->
+    <!-- ======================================================== -->
+    <section id="screen-pvp" class="concept-screen">
+      <div class="device-mockup-wrapper pvp-theme">
+        <div class="phone-status-bar">
+          <span class="status-time">09:42</span>
+          <div class="status-notch"></div>
+          <div class="status-icons">5G 📶 99% 🔋</div>
+        </div>
+
+        <!-- Header Versus: Jogador vs Oponente com Barras de Foco -->
+        <div class="versus-header glass-panel">
+          <!-- Jogador Local -->
+          <div class="versus-card player-local">
+            <div class="versus-avatar-box">
+              <div class="cyber-avatar avatar-blue">🧑‍🚀</div>
+              <span class="versus-ping-dot green" title="Latência: 18ms"></span>
+            </div>
+            <div class="versus-info">
+              <span class="versus-tag">VOCÊ</span>
+              <span class="versus-name">Kaelen (Lv. 32)</span>
+              <div class="energy-bar-wrap">
+                <div class="energy-bar blue" style="width: 78%;"></div>
+              </div>
+              <span class="energy-num">78/100 HP</span>
+            </div>
+          </div>
+
+          <!-- Centro: Contador Regressivo & Status do Clash -->
+          <div class="versus-mid">
+            <div class="timer-countdown-circle">
+              <svg viewBox="0 0 44 44" class="countdown-svg">
+                <circle cx="22" cy="22" r="18" class="timer-bg"/>
+                <circle cx="22" cy="22" r="18" class="timer-fill" stroke-dashoffset="35"/>
+              </svg>
+              <span class="countdown-seconds">48s</span>
+            </div>
+            <span class="vs-badge">VS</span>
+          </div>
+
+          <!-- Oponente Remoto -->
+          <div class="versus-card player-remote">
+            <div class="versus-info align-right">
+              <span class="versus-tag magenta">RIVAL</span>
+              <span class="versus-name">Ryuuji (Lv. 35)</span>
+              <div class="energy-bar-wrap">
+                <div class="energy-bar magenta" style="width: 85%;"></div>
+              </div>
+              <span class="energy-num">85/100 HP</span>
+            </div>
+            <div class="versus-avatar-box">
+              <div class="cyber-avatar avatar-magenta">🥷</div>
+              <span class="versus-ping-dot green" title="Latência: 24ms"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Campo de Batalha Compartilhado (Shared Clash Battlefield) -->
+        <div class="clash-battlefield glass-panel">
+          <div class="battlefield-header">
+            <span class="clash-title">CAMPO DE BATALHA SINÁPTICO</span>
+            <span class="clash-state live">DISPUTA ATIVA</span>
+          </div>
+
+          <!-- Linha de Colisão de Palavras com Raios Laser -->
+          <div class="clash-stage-zone" id="clash-stage">
+            <div class="clash-stream stream-left">
+              <div class="word-missile blue" id="missile-player">
+                <span class="missile-text">C R E A T I V O</span>
+                <span class="missile-power">+1,200 PWR</span>
+              </div>
+            </div>
+
+            <div class="clash-impact-core" id="clash-impact-core">
+              <div class="impact-ring ring-1"></div>
+              <div class="impact-ring ring-2"></div>
+              <span class="impact-spark">💥</span>
+              <div class="impact-status">CLASH DE PALAVRAS</div>
+            </div>
+
+            <div class="clash-stream stream-right">
+              <div class="word-missile magenta" id="missile-rival">
+                <span class="missile-text">R Á P I D O</span>
+                <span class="missile-power">+650 PWR</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="clash-feed-log" id="clash-feed-log">
+            <div class="feed-item blue-text">⚡ Você acertou "CRIATIVO" (-22 HP no Rival)</div>
+            <div class="feed-item magenta-text">⚠️ Ryuuji respondeu com "VELOZ" (-12 HP em Você)</div>
+          </div>
+        </div>
+
+        <!-- Arsenal de Habilidades Táticas (Spells de Duelo) -->
+        <div class="spells-deck">
+          <div class="deck-title">HABILIDADES DE INTERFERÊNCIA (MANA)</div>
+          <div class="deck-cards">
+            <button class="spell-btn" id="btn-spell-fog" title="Névoa de Glifos: Oculta 2 letras do rival por 4 segundos">
+              <span class="spell-cost">300 💠</span>
+              <span class="spell-icon">🌫️</span>
+              <span class="spell-name">Névoa</span>
+            </button>
+            <button class="spell-btn" id="btn-spell-shock" title="Onda de Choque: Força rotação imediata na roda rival">
+              <span class="spell-cost">500 💠</span>
+              <span class="spell-icon">⚡</span>
+              <span class="spell-name">Choque</span>
+            </button>
+            <button class="spell-btn active-gold" id="btn-spell-oracle" title="Oráculo: Revela a maior palavra oculta instantaneamente">
+              <span class="spell-cost">200 💠</span>
+              <span class="spell-icon">👁️</span>
+              <span class="spell-name">Oráculo</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Mini-Roda do Duelo Interativa -->
+        <div class="pvp-wheel-compact">
+          <div class="compact-letters-grid">
+            <button class="pvp-chip">A</button>
+            <button class="pvp-chip active">S</button>
+            <button class="pvp-chip active">T</button>
+            <button class="pvp-chip active">E</button>
+            <button class="pvp-chip active">R</button>
+            <button class="pvp-chip">O</button>
+            <button class="pvp-chip">I</button>
+            <button class="pvp-chip">D</button>
+          </div>
+          <button class="pvp-strike-btn" id="btn-simulate-strike">
+            <span class="strike-glow"></span>
+            <span class="strike-title">DISPARAR COMBO (ASTEROIDE) ➔</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- TELA CONCEITUAL 03: NEURO-HUB (ANALYTICS & CONSTELAÇÃO)   -->
+    <!-- ======================================================== -->
+    <section id="screen-neuro" class="concept-screen">
+      <div class="device-mockup-wrapper neuro-theme">
+        <div class="phone-status-bar">
+          <span class="status-time">09:43</span>
+          <div class="status-notch"></div>
+          <div class="status-icons">5G 📶 98% 🔋</div>
+        </div>
+
+        <!-- Cabeçalho do Perfil de Atleta Cognitivo -->
+        <div class="neuro-profile-card glass-panel">
+          <div class="profile-top">
+            <div class="profile-avatar-large">
+              <span class="profile-emblem">🌌</span>
+              <span class="profile-rank-tag">TIER MESTRE CÓSMICO</span>
+            </div>
+            <div class="profile-stats-headline">
+              <h2 class="profile-title">Drª Gabriela Ramos</h2>
+              <span class="profile-id">Nexus Cognition ID: #8849-BR</span>
+              <div class="iq-score-pill">
+                <span class="iq-label">Índice Sináptico:</span>
+                <span class="iq-value">894 pts</span>
+                <span class="iq-badge">Top 1%</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Métricas Rápidas em Grid -->
+          <div class="quick-kpi-grid">
+            <div class="kpi-card">
+              <span class="kpi-icon">⚡</span>
+              <span class="kpi-num">1.4s</span>
+              <span class="kpi-desc">Velocidade Média</span>
+            </div>
+            <div class="kpi-card">
+              <span class="kpi-icon">🎯</span>
+              <span class="kpi-num">98.2%</span>
+              <span class="kpi-desc">Precisão Léxica</span>
+            </div>
+            <div class="kpi-card">
+              <span class="kpi-icon">📚</span>
+              <span class="kpi-num">4,120</span>
+              <span class="kpi-desc">Vocábulos Únicos</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gráfico Radar Hexagonal Cognitivo SVG -->
+        <div class="radar-section glass-panel">
+          <div class="section-title-wrap">
+            <span class="section-badge">DIAGNÓSTICO BIOMÉTRICO</span>
+            <h3 class="section-title">Radar de Aptidão Cognitiva</h3>
+          </div>
+
+          <div class="radar-chart-container">
+            <svg class="radar-svg" viewBox="0 0 300 260" id="neuro-radar">
+              <!-- Círculos / Polígonos de Fundo Hexagonais -->
+              <polygon points="150,20 250,75 250,185 150,240 50,185 50,75" class="radar-grid-poly level-3"/>
+              <polygon points="150,55 220,93 220,167 150,205 80,167 80,93" class="radar-grid-poly level-2"/>
+              <polygon points="150,90 190,111 190,149 150,170 110,149 110,111" class="radar-grid-poly level-1"/>
+
+              <!-- Eixos Radiantes -->
+              <line x1="150" y1="130" x2="150" y2="20" class="radar-axis"/>
+              <line x1="150" y1="130" x2="250" y2="75" class="radar-axis"/>
+              <line x1="150" y1="130" x2="250" y2="185" class="radar-axis"/>
+              <line x1="150" y1="130" x2="150" y2="240" class="radar-axis"/>
+              <line x1="150" y1="130" x2="50" y2="185" class="radar-axis"/>
+              <line x1="150" y1="130" x2="50" y2="75" class="radar-axis"/>
+
+              <!-- Polígono de Desempenho do Jogador (Preenchimento Gradiente) -->
+              <defs>
+                <linearGradient id="radarFill" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="rgba(0, 242, 254, 0.65)" />
+                  <stop offset="100%" stop-color="rgba(127, 0, 255, 0.4)" />
+                </linearGradient>
+              </defs>
+              <polygon points="150,30 240,82 230,178 150,225 65,175 60,85" class="radar-player-data"/>
+              
+              <!-- Nós Vértices -->
+              <circle cx="150" cy="30" r="5" class="radar-vertex"/>
+              <circle cx="240" cy="82" r="5" class="radar-vertex"/>
+              <circle cx="230" cy="178" r="5" class="radar-vertex"/>
+              <circle cx="150" cy="225" r="5" class="radar-vertex"/>
+              <circle cx="65" cy="175" r="5" class="radar-vertex"/>
+              <circle cx="60" cy="85" r="5" class="radar-vertex"/>
+
+              <!-- Rótulos dos Eixos -->
+              <text x="150" y="14" class="radar-label" text-anchor="middle">Velocidade</text>
+              <text x="256" y="74" class="radar-label" text-anchor="start">Memória</text>
+              <text x="256" y="190" class="radar-label" text-anchor="start">Padrões</text>
+              <text x="150" y="255" class="radar-label" text-anchor="middle">Resiliência</text>
+              <text x="44" y="190" class="radar-label" text-anchor="end">Amplitude</text>
+              <text x="44" y="74" class="radar-label" text-anchor="end">Precisão</text>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Constelação Estelar de Raízes Semânticas Dominadas -->
+        <div class="constellation-section glass-panel">
+          <div class="section-title-wrap">
+            <span class="section-badge">MAPA DE CONHECIMENTO</span>
+            <h3 class="section-title">Constelação de Raízes Gregas & Latinas</h3>
+          </div>
+
+          <div class="star-nodes-grid">
+            <div class="star-node gold-star" title="Raiz LUMEN: 24 palavras dominadas">
+              <span class="star-glyph">✦</span>
+              <span class="star-name">LUMEN</span>
+              <span class="star-count">24 Palavras</span>
+            </div>
+            <div class="star-node cyan-star" title="Raiz CHRONOS: 18 palavras dominadas">
+              <span class="star-glyph">✦</span>
+              <span class="star-name">CHRONOS</span>
+              <span class="star-count">18 Palavras</span>
+            </div>
+            <div class="star-node purple-star" title="Raiz GRAPHOS: 31 palavras dominadas">
+              <span class="star-glyph">✦</span>
+              <span class="star-name">GRAPHOS</span>
+              <span class="star-count">31 Palavras</span>
+            </div>
+            <div class="star-node pink-star" title="Raiz VERBUM: 42 palavras dominadas">
+              <span class="star-glyph">✦</span>
+              <span class="star-name">VERBUM</span>
+              <span class="star-count">42 Palavras</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Passe de Temporada "Expedição Cósmica" -->
+        <div class="season-pass-card glass-panel">
+          <div class="pass-header">
+            <div>
+              <span class="pass-badge">TEMPORADA 01</span>
+              <h4 class="pass-title">Expedição Cósmica</h4>
+            </div>
+            <span class="pass-level">Nível 28/50</span>
+          </div>
+          <div class="pass-progress-bar">
+            <div class="pass-fill" style="width: 56%;"></div>
+          </div>
+          <div class="pass-rewards-row">
+            <div class="reward-pill unlocked">✓ Skin Vidro Vulcânico</div>
+            <div class="reward-pill current">🎁 500 Mana Cósmica</div>
+            <div class="reward-pill locked">🔒 Trilha Sonora Synthwave</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- TELA CONCEITUAL 04: PRD MASTER (DOCUMENTAÇÃO INTEGRADA)  -->
+    <!-- ======================================================== -->
+    <section id="screen-prd" class="concept-screen">
+      <div class="prd-viewer-wrapper glass-panel">
+        <div class="prd-top-banner">
+          <div class="prd-metadata-pill">DOCUMENTO EXECUTIVO DE PRODUTO</div>
+          <h2 class="prd-main-title">Planejamento Estratégico & Arquitetura: Palavrório Nexus</h2>
+          <p class="prd-subtitle">Visão 3.0 Enterprise — Caminho normativo: <code>docs/plans/2026-10-20-planejamento-estrategico-nexus-edition.md</code></p>
+        </div>
+
+        <!-- Painel de Destaques Estratégicos -->
+        <div class="prd-cards-row">
+          <div class="prd-kpi-box">
+            <span class="kpi-label">TAM (Mercado Global)</span>
+            <span class="kpi-value text-cyan">$4.8 Bilhões</span>
+            <span class="kpi-sub">Word Puzzles & Brain Training</span>
+          </div>
+          <div class="prd-kpi-box">
+            <span class="kpi-label">Meta de FCP</span>
+            <span class="kpi-value text-green">&lt; 400ms</span>
+            <span class="kpi-sub">Carregamento Instantâneo Web</span>
+          </div>
+          <div class="prd-kpi-box">
+            <span class="kpi-label">Acessibilidade</span>
+            <span class="kpi-value text-purple">WCAG 2.2 AAA</span>
+            <span class="kpi-sub">Alvos táteis 54px + Alto contraste</span>
+          </div>
+          <div class="prd-kpi-box">
+            <span class="kpi-label">Arquitetura</span>
+            <span class="kpi-value text-gold">Vanilla Core</span>
+            <span class="kpi-sub">Zero Dependências Pesadas</span>
+          </div>
+        </div>
+
+        <!-- Resumo das Fases do Roadmap -->
+        <div class="prd-roadmap-block">
+          <h3 class="roadmap-heading">Roadmap de Entregas Estratégicas (2026 - 2027)</h3>
+          <div class="roadmap-steps-grid">
+            <div class="step-card active">
+              <span class="step-phase">FASE 1 (Q4 2026)</span>
+              <h4 class="step-title">Nexus Word Wheel & Dark Core</h4>
+              <p class="step-desc">Roda polar trigonométrica, física elástica, dicionário 120k lemas e síntese Web Audio API.</p>
+              <span class="step-tag tag-ready">PRONTO PARA HOMOLOGAÇÃO</span>
+            </div>
+            <div class="step-card">
+              <span class="step-phase">FASE 2 (Q1 2027)</span>
+              <h4 class="step-title">Duelo 1v1 & WebRTC</h4>
+              <p class="step-desc">Combate multiplayer síncrono, projéteis de pressão léxica e salas instantâneas por link.</p>
+              <span class="step-tag tag-progress">ESPECIFICAÇÃO PRONTA</span>
+            </div>
+            <div class="step-card">
+              <span class="step-phase">FASE 3 (Q2 2027)</span>
+              <h4 class="step-title">Neuro-Hub & Métricas</h4>
+              <p class="step-desc">Diagnóstico biométrico da mente, constelações de vocabulário e passes de temporada.</p>
+              <span class="step-tag tag-future">PLANEJADO</span>
+            </div>
+            <div class="step-card">
+              <span class="step-phase">FASE 4 (Q3 2027)</span>
+              <h4 class="step-title">Nexus for Teams (B2B)</h4>
+              <p class="step-desc">Plataforma de ginástica cerebral corporativa com dashboards e ligas interempresas.</p>
+              <span class="step-tag tag-future">CONCEITUAL</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Botões de Ação do PRD -->
+        <div class="prd-footer-actions">
+          <button class="prd-action-btn primary" id="btn-copy-prd-path">
+            <span>📋</span> Copiar Caminho do PRD Normativo
+          </button>
+          <a href="../index.html" class="prd-action-btn secondary">
+            <span>🚀</span> Abrir Jogo Principal (Palavrório V1)
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Notificação Toast de Ações Interativas -->
+  <div id="toast-notify" class="toast-card" aria-live="polite">
+    <span id="toast-icon">✨</span>
+    <span id="toast-msg">Mensagem</span>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

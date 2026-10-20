@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Palavrório — Jogo Casual de Anagramas e Conexão de Letras</title>
+  <meta name="description" content="Descubra palavras escondidas conectando letras em uma experiência visualmente deslumbrante em Dark Glassmorphism com desafios ilimitados em português.">
+  <meta name="theme-color" content="#090d16">
+  
+  <!-- Tipografia Moderna Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="proto-aurora">
+  <!-- Efeito de Luz Aurora de Fundo -->
+  <div class="ambient-glow orb-1" aria-hidden="true"></div>
+  <div class="ambient-glow orb-2" aria-hidden="true"></div>
+  <div class="ambient-glow orb-3" aria-hidden="true"></div>
+
+  <!-- Canvas para Confetes e Partículas de Vitória -->
+  <canvas id="confetti-canvas" aria-hidden="true"></canvas>
+
+  <div class="app-container">
+    <!-- Cabeçalho Principal -->
+    <header class="app-header glass-card">
+      <div class="header-left">
+        <div class="logo-wrapper">
+          <span class="logo-icon" aria-hidden="true">✨</span>
+          <div class="logo-text-group">
+            <h1 class="logo-title">PALAVRÓRIO</h1>
+            <span class="logo-badge">Modo Ilimitado</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="header-center">
+        <div class="stat-pill" title="Pontuação Acumulada">
+          <span class="stat-icon" aria-hidden="true">🏆</span>
+          <span class="stat-value" id="header-score">0</span>
+          <span class="stat-label">pts</span>
+        </div>
+        <div class="stat-pill bonus-pill" id="bonus-words-counter" title="Palavras Bônus Encontradas">
+          <span class="stat-icon" aria-hidden="true">💎</span>
+          <span class="stat-value" id="header-bonus-count">0</span>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <button id="btn-toggle-sound" class="icon-btn" aria-label="Alternar Efeitos Sonoros" title="Som (Ativar/Desativar)">
+          <span id="sound-icon" aria-hidden="true">🔊</span>
+        </button>
+        <button id="btn-open-stats" class="icon-btn" aria-label="Abrir Estatísticas" title="Estatísticas">
+          <span aria-hidden="true">📊</span>
+        </button>
+        <button id="btn-open-help" class="icon-btn" aria-label="Como Jogar" title="Como Jogar">
+          <span aria-hidden="true">❓</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Barra de Progresso do Nível Atual -->
+    <section class="level-bar-section">
+      <div class="level-meta">
+        <span class="level-title-display" id="current-level-title">Nível 1 • O Ponto de Partida</span>
+        <div class="stars-preview" id="stars-preview-bar" title="Estrelas da Rodada">
+          <span class="star-icon active" id="preview-star-1">★</span>
+          <span class="star-icon active" id="preview-star-2">★</span>
+          <span class="star-icon active" id="preview-star-3">★</span>
+        </div>
+      </div>
+      <div class="progress-track" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="round-progressbar">
+        <div class="progress-fill" id="round-progress-fill"></div>
+      </div>
+    </section>
+
+    <!-- Área Principal do Tabuleiro de Palavras Ocultas -->
+    <main class="board-container glass-card" id="words-board" aria-label="Tabuleiro de Palavras">
+      <!-- Células geradas dinamicamente via JavaScript -->
+    </main>
+
+    <!-- Área de Interação e Entrada -->
+    <footer class="interaction-area">
+      <!-- Pílula de Pré-visualização da Palavra Atual -->
+      <div class="current-word-wrapper">
+        <div class="current-word-bubble glass-card" id="current-word-display" aria-live="polite">
+          <span class="placeholder-hint">Arraste ou clique nas letras</span>
+        </div>
+        <div class="feedback-toast" id="feedback-toast" aria-live="assertive"></div>
+      </div>
+
+      <!-- Barra de Ações Rápidas (Dicas e Ferramentas) -->
+      <div class="action-tools-bar">
+        <button id="btn-hint-letter" class="action-pill-btn hint-btn" title="Revela uma letra de uma palavra oculta (-15% pts)">
+          <span class="btn-icon" aria-hidden="true">💡</span>
+          <span class="btn-text">Letra</span>
+          <span class="penalty-tag">-15%</span>
+        </button>
+
+        <button id="btn-shuffle" class="action-pill-btn shuffle-btn" aria-label="Embaralhar Letras da Roda" title="Embaralhar (Atalho: Barra de Espaço)">
+          <span class="btn-icon" aria-hidden="true">🔀</span>
+          <span class="btn-text">Embaralhar</span>
+        </button>
+
+        <button id="btn-hint-clue" class="action-pill-btn hint-btn" title="Revela a dica/significado de uma palavra oculta (-25% pts)">
+          <span class="btn-icon" aria-hidden="true">📖</span>
+          <span class="btn-text">Pista</span>
+          <span class="penalty-tag">-25%</span>
+        </button>
+
+        <button id="btn-clear-selection" class="action-pill-btn clear-btn" aria-label="Limpar Seleção" title="Limpar (Atalho: Esc ou Backspace)">
+          <span class="btn-icon" aria-hidden="true">✖️</span>
+        </button>
+      </div>
+
+      <!-- A Roda de Letras Interativa -->
+      <div class="wheel-stage-container" id="wheel-stage-container">
+        <!-- SVG para desenhar linhas conectando os nós de letras durante o arrasto -->
+        <svg class="connection-svg" id="connection-svg" aria-hidden="true">
+          <line id="dynamic-drag-line" x1="0" y1="0" x2="0" y2="0" stroke="rgba(0, 242, 254, 0.7)" stroke-width="5" stroke-linecap="round" />
+        </svg>
+
+        <!-- Anel central da roda -->
+        <div class="wheel-ring" id="wheel-ring" aria-label="Roda de letras para formar palavras">
+          <!-- Nós de letras posicionados matematicamente via JS -->
+        </div>
+
+        <!-- Botão central de confirmação de envio (para quem joga por clique) -->
+        <button id="btn-submit-word" class="wheel-center-btn" aria-label="Enviar Palavra" title="Confirmar Palavra (Atalho: Enter)">
+          <span class="center-arrow" aria-hidden="true">➔</span>
+        </button>
+      </div>
+    </footer>
+  </div>
+
+  <!-- MODAL: Vitória e Conclusão de Nível -->
+  <div class="modal-overlay" id="modal-victory" aria-hidden="true" role="dialog" aria-labelledby="victory-title">
+    <div class="modal-card victory-card glass-card">
+      <div class="victory-header">
+        <div class="victory-icon-halo">🎉</div>
+        <h2 id="victory-title" class="modal-title">Nível Concluído!</h2>
+        <p class="modal-subtitle" id="victory-subtitle">Você encontrou todas as palavras do tabuleiro!</p>
+      </div>
+
+      <!-- Estrelas Conquistadas -->
+      <div class="victory-stars-wrapper" id="victory-stars-container">
+        <div class="victory-star" id="v-star-1">★</div>
+        <div class="victory-star" id="v-star-2">★</div>
+        <div class="victory-star" id="v-star-3">★</div>
+      </div>
+      <div class="star-rating-label" id="star-rating-label">Desempenho Perfeito (Sem Dicas!)</div>
+
+      <!-- Resumo de Pontuação -->
+      <div class="victory-stats-grid">
+        <div class="v-stat-box">
+          <span class="v-stat-label">Pontos da Rodada</span>
+          <span class="v-stat-value" id="v-round-score">+0</span>
+        </div>
+        <div class="v-stat-box">
+          <span class="v-stat-label">Dicas Usadas</span>
+          <span class="v-stat-value" id="v-hints-used">0</span>
+        </div>
+        <div class="v-stat-box">
+          <span class="v-stat-label">Bônus Extras</span>
+          <span class="v-stat-value" id="v-bonus-score">+0</span>
+        </div>
+      </div>
+
+      <!-- Lista das Palavras e Significados Descobertos -->
+      <div class="words-summary-box">
+        <h3 class="words-summary-title">Vocabulário Deste Nível:</h3>
+        <div class="words-summary-list" id="victory-words-list">
+          <!-- Preenchido via JS -->
+        </div>
+      </div>
+
+      <button id="btn-next-level" class="primary-gradient-btn" aria-label="Ir para o Próximo Nível">
+        <span>Próximo Desafio</span>
+        <span aria-hidden="true">➔</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- MODAL: Estatísticas Gerais do Jogador -->
+  <div class="modal-overlay" id="modal-stats" aria-hidden="true" role="dialog" aria-labelledby="stats-title">
+    <div class="modal-card glass-card">
+      <div class="modal-header">
+        <h2 id="stats-title" class="modal-title">Suas Estatísticas</h2>
+        <button class="modal-close-btn" id="btn-close-stats" aria-label="Fechar Estatísticas">&times;</button>
+      </div>
+
+      <div class="stats-overview-grid">
+        <div class="stat-big-card">
+          <span class="stat-big-num" id="stat-total-completed">0</span>
+          <span class="stat-big-label">Níveis Concluídos</span>
+        </div>
+        <div class="stat-big-card">
+          <span class="stat-big-num" id="stat-total-score">0</span>
+          <span class="stat-big-label">Pontuação Total</span>
+        </div>
+        <div class="stat-big-card">
+          <span class="stat-big-num" id="stat-words-found">0</span>
+          <span class="stat-big-label">Palavras Totais</span>
+        </div>
+        <div class="stat-big-card">
+          <span class="stat-big-num" id="stat-bonus-found">0</span>
+          <span class="stat-big-label">Palavras Bônus</span>
+        </div>
+      </div>
+
+      <div class="stars-distribution-container">
+        <h3 class="stats-section-title">Distribuição de Estrelas:</h3>
+        <div class="star-bar-row">
+          <span class="star-bar-label">3 Estrelas ⭐⭐⭐</span>
+          <div class="star-bar-track">
+            <div class="star-bar-fill gold-bar" id="bar-3-stars" style="width: 0%"></div>
+          </div>
+          <span class="star-bar-count" id="count-3-stars">0</span>
+        </div>
+        <div class="star-bar-row">
+          <span class="star-bar-label">2 Estrelas ⭐⭐</span>
+          <div class="star-bar-track">
+            <div class="star-bar-fill silver-bar" id="bar-2-stars" style="width: 0%"></div>
+          </div>
+          <span class="star-bar-count" id="count-2-stars">0</span>
+        </div>
+        <div class="star-bar-row">
+          <span class="star-bar-label">1 Estrela ⭐</span>
+          <div class="star-bar-track">
+            <div class="star-bar-fill bronze-bar" id="bar-1-star" style="width: 0%"></div>
+          </div>
+          <span class="star-bar-count" id="count-1-star">0</span>
+        </div>
+      </div>
+
+      <div class="modal-actions-row">
+        <button id="btn-reset-stats" class="danger-ghost-btn">Zerar Estatísticas</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: Como Jogar / Ajuda -->
+  <div class="modal-overlay" id="modal-help" aria-hidden="true" role="dialog" aria-labelledby="help-title">
+    <div class="modal-card glass-card">
+      <div class="modal-header">
+        <h2 id="help-title" class="modal-title">Como Jogar</h2>
+        <button class="modal-close-btn" id="btn-close-help" aria-label="Fechar Ajuda">&times;</button>
+      </div>
+
+      <div class="help-content-list">
+        <div class="help-item">
+          <span class="help-badge">1</span>
+          <div class="help-text">
+            <strong>Conecte as Letras:</strong> Arraste o dedo/mouse pelas letras da roda ou clique nelas sequencialmente para formar palavras válidas em português.
+          </div>
+        </div>
+
+        <div class="help-item">
+          <span class="help-badge">2</span>
+          <div class="help-text">
+            <strong>Preencha o Tabuleiro:</strong> Cada palavra correta é revelada na grade. O nível é vencido ao descobrir todas as palavras do tabuleiro!
+          </div>
+        </div>
+
+        <div class="help-item">
+          <span class="help-badge">3</span>
+          <div class="help-text">
+            <strong>Palavras Bônus:</strong> Formou uma palavra válida que não estava no tabuleiro? Ela vai para o seu Pote Bônus 💎 e rende pontos adicionais!
+          </div>
+        </div>
+
+        <div class="help-item">
+          <span class="help-badge">4</span>
+          <div class="help-text">
+            <strong>Dicas e Estrelas:</strong>
+            <ul class="help-sublist">
+              <li>⭐⭐⭐ <strong>3 Estrelas:</strong> Resolvido puramente pelo raciocínio (0 dicas).</li>
+              <li>⭐⭐ <strong>2 Estrelas:</strong> Usou 1 dica de letra (-15% pts).</li>
+              <li>⭐ <strong>1 Estrela:</strong> Usou pistas temáticas ou múltiplas dicas (-25% pts).</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="help-item">
+          <span class="help-badge">⌨️</span>
+          <div class="help-text">
+            <strong>Atalhos de Teclado:</strong>
+            Digite as letras no teclado para selecionar. Pressione <code>Enter</code> para enviar, <code>Backspace</code> para apagar e <code>Espaço</code> para embaralhar.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: Dica Temática / Significado Revelado -->
+  <div class="modal-overlay" id="modal-clue" aria-hidden="true" role="dialog" aria-labelledby="clue-title">
+    <div class="modal-card clue-card glass-card">
+      <div class="modal-header">
+        <h2 id="clue-title" class="modal-title">Pista Revelada 📖</h2>
+        <button class="modal-close-btn" id="btn-close-clue" aria-label="Fechar Pista">&times;</button>
+      </div>
+      <div class="clue-body">
+        <p class="clue-letters-tag" id="clue-target-len">Palavra de 5 letras</p>
+        <blockquote class="clue-text" id="clue-text-content">
+          "..."
+        </blockquote>
+        <p class="clue-penalty-alert">Penalidade aplicada: -25% de pontuação na rodada.</p>
+      </div>
+      <button id="btn-dismiss-clue" class="primary-gradient-btn" style="width: 100%;">Entendido!</button>
+    </div>
+  </div>
+
+  <!-- Módulos JavaScript -->
+  <script type="module" src="game.js"></script>
+</body>
+</html>
